@@ -20,6 +20,7 @@ const Login = () => {
     defaultValues: {
       email: "",
       password: "",
+      acceptTerms: false,
     },
   });
 
@@ -78,7 +79,9 @@ const Login = () => {
           <h2>{translate("login.title")}</h2>
         </div>
 
-        {serverError && <div className="error-message">{translate(serverError)}</div>}
+        {serverError && (
+          <div className="error-message">{translate(serverError)}</div>
+        )}
 
         <form onSubmit={handleSubmit(onSubmit)} className="login-form">
           <InputField
@@ -87,7 +90,7 @@ const Login = () => {
             name="email"
             placeholder={translate("login.email_placeholder")}
             disabled={loading}
-            error={errors.email?.message ? translate(errors.email.message) : ''}
+            error={errors.email?.message ? translate(errors.email.message) : ""}
             translateError={true}
             {...register("email", {
               required: "login.error_required_email",
@@ -105,7 +108,9 @@ const Login = () => {
             placeholder={translate("login.password_placeholder")}
             disabled={loading}
             showPasswordToggle={true}
-            error={errors.password?.message ? translate(errors.password.message) : ''}
+            error={
+              errors.password?.message ? translate(errors.password.message) : ""
+            }
             translateError={true}
             {...register("password", {
               required: "login.error_required_password",
@@ -116,6 +121,35 @@ const Login = () => {
             })}
           />
 
+          <div className="login-terms-container">
+            <label className="terms-label">
+              <input
+                type="checkbox"
+                {...register("acceptTerms", {
+                  required: "login.error_required_terms",
+                })}
+                className="terms-checkbox"
+              />
+              <span className="terms-text">
+                {translate("login.accept_terms_1")}{" "}
+                <a
+                  href="/terms"
+                  className="terms-link"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.open("/terms", "_blank", "noopener,noreferrer");
+                  }}
+                >
+                  {translate("login.terms_link")}
+                </a>
+              </span>
+            </label>
+            {errors.acceptTerms && (
+              <div className="field-error">
+                {translate(errors.acceptTerms.message)}
+              </div>
+            )}
+          </div>
           <button type="submit" className="login-button" disabled={loading}>
             {loading ? translate("login.loading") : translate("login.button")}
           </button>

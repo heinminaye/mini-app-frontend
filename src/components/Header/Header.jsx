@@ -12,7 +12,6 @@ const Header = () => {
             alt="Logo"
             className="logo"
           />
-          <span className="app-name">123Fakturera</span>
         </div>
 
         <LanguageDropdown />

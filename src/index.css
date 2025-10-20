@@ -23,6 +23,7 @@ body {
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
+  background: #1e40af;
 }
 
 .main-content {
@@ -31,7 +32,6 @@ body {
   background-color: #f9fafb;
   height: calc(100vh - 60px);
 }
-
 
 a {
   text-decoration: inherit;
@@ -74,7 +74,7 @@ a {
   border-color: #d1d5db;
   color: #9ca3af;
 }
-.input-group .field-error{
+.field-error{
   color: #dc2626;
   font-size: 12px;
   margin-top: 4px;

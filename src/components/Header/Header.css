@@ -30,16 +30,3 @@
   object-fit: contain;
 }
 
-.app-name {
-  font-size: 20px;
-  font-weight: 600;
-  color: #1f2937;
-  letter-spacing: -0.5px;
-}
-
-@media (max-width: 640px) {
-  .logo-section .app-name {
-    display: none;
-  }
-}
-

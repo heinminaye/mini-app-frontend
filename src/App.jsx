@@ -9,6 +9,7 @@ import Login from "./components/Login/Login";
 import Header from "./components/Header/Header";
 import { LanguageProvider } from "./context/LanguageContext";
 import Sidebar from "./components/Sidebar/Sidebar";
+import Terms from "./components/Terms/Terms";
 function App() {
   const isLogin = !!localStorage.getItem("token");
 
@@ -30,6 +31,7 @@ function App() {
                   isLogin ? <Navigate to="/" /> : <Navigate to="/login" />
                 }
               />
+              <Route path="/terms" element={ <Terms/> } />
             </Routes>
           </main>
         </div>

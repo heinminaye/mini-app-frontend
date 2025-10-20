@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { Eye, EyeOff } from 'lucide-react';
 import { useLanguage } from '../../hooks/useLanguage';
 
 const InputField = ({
@@ -57,7 +57,7 @@ const InputField = ({
               color: '#6b7280'
             }}
           >
-            {showPassword ? <FiEyeOff /> : <FiEye />}
+            {showPassword ? <EyeOff /> : <Eye />}
           </span>
         )}
       </div>
