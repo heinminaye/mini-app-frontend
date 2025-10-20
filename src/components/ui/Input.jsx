@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { useLanguage } from '../../hooks/useLanguage';
 
 const InputField = ({
   label = '',
@@ -12,12 +13,15 @@ const InputField = ({
   disabled = false,
   showPasswordToggle = false,
   error = '',
+  translateError = false,
   ...rest
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === 'password';
+  const { translate } = useLanguage();
 
   const togglePassword = () => setShowPassword(prev => !prev);
+  const displayError = translateError && error ? translate(error) : error;
 
   return (
     <div className="input-group">
@@ -58,7 +62,7 @@ const InputField = ({
         )}
       </div>
 
-      {error && <div className="field-error">{error}</div>}
+      {displayError && <div className="field-error">{displayError}</div>}
     </div>
   );
 };

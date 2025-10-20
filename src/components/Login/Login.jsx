@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import "./Login.css";
-import InputField from "../Input";
+import InputField from "../ui/Input";
 import apiService from "../../service/api";
+import { useLanguage } from "../../hooks/useLanguage";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState("");
+  const { translate } = useLanguage();
 
   const {
     register,
@@ -31,70 +33,91 @@ const Login = () => {
 
       console.log("Login response:", result);
 
-      if (result.returncode == '200') {
+      if (result.returncode == "200") {
         if (result.token) {
           localStorage.setItem("token", result.token);
         }
         window.location.reload();
       } else {
-        setServerError(result.message || "Login failed");
-        if (result.message.toLowerCase().includes("email") || result.message.toLowerCase().includes("password")) {
-          setError("email", { type: "server"});
-          setError("password", { type: "server"});
+        const messageKey =
+          result.message && result.message.startsWith("login.")
+            ? result.message
+            : "login.error_server";
+
+        setServerError(messageKey);
+
+        if (
+          result.message.toLowerCase().includes("email") ||
+          result.message.toLowerCase().includes("password")
+        ) {
+          setError("email", { type: "server" });
+          setError("password", { type: "server" });
         }
       }
     } catch (err) {
-      setServerError("An unexpected error occurred. Please try again.", err);
+      console.log(err);
+      setServerError(translate("login.error_server"));
     } finally {
       setLoading(false);
     }
   };
 
+  useEffect(() => {
+    if (serverError) {
+      const timer = setTimeout(() => {
+        setServerError("");
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [serverError]);
+
   return (
     <div className="login-container">
       <div className="login-card">
         <div className="login-header">
-          <h2>Login</h2>
+          <h2>{translate("login.title")}</h2>
         </div>
 
-        {serverError && <div className="error-message">{serverError}</div>}
+        {serverError && <div className="error-message">{translate(serverError)}</div>}
 
         <form onSubmit={handleSubmit(onSubmit)} className="login-form">
           <InputField
-            label="Email"
+            label={translate("login.email_label")}
             type="email"
             name="email"
-            placeholder="Enter your email"
+            placeholder={translate("login.email_placeholder")}
             disabled={loading}
-            error={errors.email?.message}
+            error={errors.email?.message ? translate(errors.email.message) : ''}
+            translateError={true}
             {...register("email", {
-              required: "Email is required",
+              required: "login.error_required_email",
               pattern: {
                 value: /\S+@\S+\.\S+/,
-                message: "Please enter a valid email address",
+                message: "login.error_invalid",
               },
             })}
           />
 
           <InputField
-            label="Password"
+            label={translate("login.password_label")}
             type="password"
             name="password"
-            placeholder="Enter your password"
+            placeholder={translate("login.password_placeholder")}
             disabled={loading}
             showPasswordToggle={true}
-            error={errors.password?.message}
+            error={errors.password?.message ? translate(errors.password.message) : ''}
+            translateError={true}
             {...register("password", {
-              required: "Password is required",
+              required: "login.error_required_password",
               minLength: {
                 value: 6,
-                message: "Password must be at least 6 characters",
+                message: "login.error_min_password",
               },
             })}
           />
 
           <button type="submit" className="login-button" disabled={loading}>
-            {loading ? "Logging In..." : "Log In"}
+            {loading ? translate("login.loading") : translate("login.button")}
           </button>
         </form>
       </div>

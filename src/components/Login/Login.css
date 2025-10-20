@@ -4,12 +4,13 @@
   justify-content: center;
   background: #1e40af;
   padding: 20px;
-  height: 100vh;
+  flex: 1;
+  min-height: 100%
 }
 
 .login-card {
   background: white;
-  padding: 40px;
+  padding: 30px;
   border-radius: 16px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   width: 100%;
@@ -24,7 +25,6 @@
 .login-form {
   margin-bottom: 0;
 }
-
 
 .error-message {
   background: #fef2f2;
