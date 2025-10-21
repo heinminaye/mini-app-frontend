@@ -54,10 +54,10 @@ const InputField = ({
               top: '54%',
               transform: 'translateY(-50%)',
               cursor: 'pointer',
-              color: '#6b7280'
+              color: '#6b7280',
             }}
           >
-            {showPassword ? <EyeOff /> : <Eye />}
+            {showPassword ? <EyeOff size={20}/> : <Eye size={20}/>}
           </span>
         )}
       </div>

@@ -38,6 +38,15 @@ const Login = () => {
         if (result.token) {
           localStorage.setItem("token", result.token);
         }
+        if (result.user) {
+          localStorage.setItem("user", JSON.stringify(result.user));
+        } else {
+          const userData = {
+            email: data.email,
+            name: data.email.split('@')[0]
+          };
+          localStorage.setItem("user", JSON.stringify(userData));
+        }
         window.location.reload();
       } else {
         const messageKey =
@@ -137,7 +146,7 @@ const Login = () => {
                   className="terms-link"
                   onClick={(e) => {
                     e.preventDefault();
-                    window.open("/terms", "_blank", "noopener,noreferrer");
+                    window.open("/terms", "_blank");
                   }}
                 >
                   {translate("login.terms_link")}

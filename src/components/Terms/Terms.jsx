@@ -2,14 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../../hooks/useLanguage';
 import apiService from '../../service/api';
 import './Terms.css';
-import { useNavigate } from 'react-router-dom';
 
 const Terms = () => {
   const [terms, setTerms] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { translate, currentLang } = useLanguage();
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchTerms();
@@ -98,10 +96,6 @@ const Terms = () => {
             <p>{terms.contact} <a href="mailto:support@123fakturera.se" className="contact-link">support@123fakturera.se</a></p>
           </section>
         </div>
-
-        <button className="btn back-btn" onClick={() => navigate('/login')}>
-          {currentLang === 'en' ? 'Go Back to Login' : 'Tillbaka till Inloggning'}
-        </button>
       </div>
     </div>
   );

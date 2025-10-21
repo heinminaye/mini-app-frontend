@@ -39,7 +39,7 @@ const LanguageDropdown = () => {
           disabled={loading}
         >
           {loading ? (
-            <span className="loading-circle"></span>
+            <span className="language-loading-circle"></span>
           ) : (
             <>
               <span className="language-code">{currentLang.toUpperCase()}</span>

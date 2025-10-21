@@ -2,18 +2,6 @@
   position: relative;
 }
 
-.loading-dot {
-  color: #3b82f6;
-  font-size: 20px;
-  animation: pulse 1.5s infinite;
-  margin-right: 10px;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
 .language-dropdown {
   position: relative;
 }
@@ -21,9 +9,8 @@
 .current-language {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 8px;
-  padding: 10px 16px;
+  padding: 8px 12px;
   background: #f8fafc;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
@@ -45,61 +32,7 @@
 
 .current-language.loading {
   pointer-events: none;
-  position: relative;
   opacity: 0.8;
-}
-
-.current-language.loading .language-code,
-.current-language.loading .flag {
-  opacity: 0;
-  visibility: hidden;
-}
-
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-.language-dropdown {
-  position: relative;
-}
-
-.current-language {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 16px;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.current-language:hover {
-  background: #f1f5f9;
-  border-color: #cbd5e1;
-}
-
-.current-language:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
 }
 
 .flag {
@@ -112,9 +45,6 @@
 .language-code {
   color: #374151;
   font-weight: 600;
-}
-.dropdown-arrow.open {
-  transform: rotate(180deg);
 }
 
 .dropdown-menu {
@@ -168,15 +98,7 @@
   font-weight: 500;
 }
 
-.dropdown-loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 60px;
-  background: white;
-}
-
-.loading-circle {
+.language-loading-circle{
   width: 18px;
   height: 18px;
   border: 3px solid #e5e7eb;
@@ -188,5 +110,31 @@
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .language-code {
+    display: none;
+  }
+  
+  .current-language {
+    padding: 8px;
+  }
+  
+  .dropdown-menu {
+    right: 0;
+    left: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .current-language {
+    padding: 6px;
+  }
+  
+  .flag {
+    width: 20px;
+    height: 15px;
   }
 }

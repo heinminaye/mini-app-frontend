@@ -1,30 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import apiService from '../service/api';
 import { LanguageContext } from '../hooks/useLanguage';
 
-export const LanguageProvider = ({ children }) => {
-  const [currentLang, setCurrentLang] = useState('en');
-  const [translations, setTranslations] = useState({});
-  const [supportedLanguages, setSupportedLanguages] = useState([]);
+export const LanguageProvider = ({ children, initialData }) => {
+  const [currentLang, setCurrentLang] = useState(initialData?.initialLanguage || 'en');
+  const [translations, setTranslations] = useState(initialData?.translations || {});
+  const [supportedLanguages] = useState(initialData?.supportedLanguages || []);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    loadSupportedLanguages();
-    const savedLang = localStorage.getItem('preferredLanguage') || 'en';
-    changeLanguage(savedLang, false);
-  }, []);
-
-  const loadSupportedLanguages = async () => {
-    try {
-      const data = await apiService.getSupportedLanguages();
-      
-      if (data.returncode === "200") {
-        setSupportedLanguages(data.languages);
-      }
-    } catch (error) {
-      console.error('Failed to load supported languages:', error);
-    }
-  };
 
   const changeLanguage = async (lang, showLoading = true) => {
     try {
@@ -32,7 +14,7 @@ export const LanguageProvider = ({ children }) => {
       
       const data = await apiService.changeLanguage(lang);
       
-      if (data.returncode === "200") {
+      if (data.returncode === "200" && data.translations) {
         setTranslations(data.translations);
         setCurrentLang(data.currentLanguage);
         localStorage.setItem('preferredLanguage', data.currentLanguage);
