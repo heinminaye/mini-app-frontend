@@ -28,7 +28,6 @@ const Sidebar = ({ isOpen, onClose }) => {
 
   useEffect(() => {
   const handleClickOutside = (event) => {
-    // only close when sidebar is open AND on mobile
     if (
       isOpen &&
       window.innerWidth <= 768 &&
