@@ -24,9 +24,13 @@ const Sidebar = ({ isOpen, onClose , menuButtonRef}) => {
     if (item.key === "menu.logout") {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      navigate("/login");
+      if (window.abortController) {
+        window.abortController.abort();
+      }
+    
+    window.location.href = "/login";
     } else {
-      if (location.pathname !== item.path &&  window.innerWidth <= 1024) {
+      if (location.pathname !== item.path && window.innerWidth <= 1024) {
         navigate(item.path);
         onClose();
       }
@@ -48,7 +52,7 @@ const Sidebar = ({ isOpen, onClose , menuButtonRef}) => {
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, menuButtonRef]);
 
   return (
     <nav className={`sidebar ${isOpen ? "mobile-open" : ""}`} ref={sidebarRef}>
