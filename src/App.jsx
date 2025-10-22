@@ -5,16 +5,16 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Login from "./components/Login/Login.jsx";
-import Header from "./components/Header/Header.jsx";
-import { LanguageProvider } from "./context/LanguageContext.jsx";
-import Sidebar from "./components/Sidebar/Sidebar.jsx";
-import Terms from "./components/Terms/Terms.jsx";
+import Login from "./components/Login/Login";
+import Header from "./components/Header/Header";
+import { LanguageProvider } from "./context/LanguageContext";
+import Sidebar from "./components/Sidebar/Sidebar";
+import Terms from "./components/Terms/Terms";
 import { useEffect, useRef, useState } from "react";
-import ServerError from "./components/ServerError/ServerError.jsx";
-import { onBackendError, onTokenError } from "./service/backendError.js";
-import apiService from "./service/api.js";
-import PriceList from "./components/PriceList/PriceList.jsx";
+import ServerError from "./components/ServerError/ServerError";
+import { onBackendError, onTokenError } from "./service/backendError";
+import apiService from "./service/api";
+import PriceList from "./components/PriceList/PriceList";
 
 function App() {
   const isLogin = !!localStorage.getItem("token");

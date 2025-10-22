@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import apiService from '../service/api.js';
-import { LanguageContext } from '../hooks/useLanguage.js';
+import apiService from '../service/api';
+import { LanguageContext } from '../hooks/useLanguage';
 
 export const LanguageProvider = ({ children, initialData }) => {
   const [currentLang, setCurrentLang] = useState(initialData?.initialLanguage || 'en');

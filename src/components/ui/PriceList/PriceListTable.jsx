@@ -1,4 +1,4 @@
-import { useLanguage } from "../../../hooks/useLanguage.js";
+import { useLanguage } from "../../../hooks/useLanguage";
 
 function PriceListTable({
   items,
