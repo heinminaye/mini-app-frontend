@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
-import { useLanguage } from '../../hooks/useLanguage';
+import { useLanguage } from '../../hooks/useLanguage.js';
 
 const InputField = ({
   label = '',

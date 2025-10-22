@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useLanguage } from '../../hooks/useLanguage';
-import apiService from '../../service/api';
+import { useLanguage } from '../../hooks/useLanguage.js';
+import apiService from '../../service/api.js';
 import './Terms.css';
 
 const Terms = () => {

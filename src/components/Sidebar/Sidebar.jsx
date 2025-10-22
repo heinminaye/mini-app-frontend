@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
-import { useLanguage } from "../../hooks/useLanguage";
+import { useLanguage } from "../../hooks/useLanguage.js";
 
 const Sidebar = ({ isOpen, onClose , menuButtonRef}) => {
   const { translate } = useLanguage();

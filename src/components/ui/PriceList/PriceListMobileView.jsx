@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useLanguage } from "../../../hooks/useLanguage";
+import { useLanguage } from "../../../hooks/useLanguage.js";
 
 function PriceListMobileView({
   items,

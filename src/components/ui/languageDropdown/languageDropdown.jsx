@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./LanguageDropdown.css";
-import { useLanguage } from "../../../hooks/useLanguage";
+import { useLanguage } from "../../../hooks/useLanguage.js";
 
 const LanguageDropdown = () => {
   const { currentLang, supportedLanguages, changeLanguage, loading } =

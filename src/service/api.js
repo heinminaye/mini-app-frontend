@@ -1,4 +1,4 @@
-import { triggerBackendError, triggerTokenError } from "./backendError";
+import { triggerBackendError, triggerTokenError } from "./backendError.js";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 const currentLang = localStorage.getItem("preferredLanguage") || "en";

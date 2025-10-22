@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import "./Login.css";
-import InputField from "../ui/Input";
-import apiService from "../../service/api";
-import { useLanguage } from "../../hooks/useLanguage";
+import InputField from "../ui/Input.jsx";
+import apiService from "../../service/api.js";
+import { useLanguage } from "../../hooks/useLanguage.js";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);

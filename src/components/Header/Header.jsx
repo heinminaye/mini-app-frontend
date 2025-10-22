@@ -1,5 +1,5 @@
 import "./Header.css";
-import LanguageDropdown from "../ui/languageDropdown/LanguageDropdown";
+import LanguageDropdown from "../ui/languageDropdown/LanguageDropdown.jsx";
 
 const Header = ({ onMenuToggle,menuButtonRef }) => {
   const isLogin = !!localStorage.getItem("token");

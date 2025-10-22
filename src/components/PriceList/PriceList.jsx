@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { useLanguage } from "../../hooks/useLanguage";
-import apiService from "../../service/api";
-import PriceListModal from "../ui/PriceList/PriceListModal";
-import PriceListTable from "../ui/PriceList/PriceListTable";
-import PriceListMobileView from "../ui/PriceList/PriceListMobileView";
+import { useLanguage } from "../../hooks/useLanguage.js";
+import apiService from "../../service/api.js";
+import PriceListModal from "../ui/PriceList/PriceListModal.jsx";
+import PriceListTable from "../ui/PriceList/PriceListTable.jsx";
+import PriceListMobileView from "../ui/PriceList/PriceListMobileView.jsx";
 import "./PriceList.css";
 
 function PriceList() {

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { useLanguage } from "../../../hooks/useLanguage";
-import InputField from "../Input";
+import { useLanguage } from "../../../hooks/useLanguage.js";
+import InputField from "../Input.jsx";
 import { useEffect } from "react";
 
 function PriceListModal({
