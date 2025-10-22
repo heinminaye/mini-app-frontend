@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./LanguageDropdown.css";
 import { useLanguage } from "../../../hooks/useLanguage.js";
 
