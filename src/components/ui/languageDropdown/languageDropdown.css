@@ -30,7 +30,7 @@
   cursor: not-allowed;
 }
 
-.current-language.loading {
+.current-language.language-loading {
   pointer-events: none;
   opacity: 0.8;
 }

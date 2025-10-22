@@ -110,7 +110,7 @@ a {
 }
 
 /* Loading */
-.content-area.loading {
+.loading-area.loading {
   display: flex;
   justify-content: center;
   align-items: center;

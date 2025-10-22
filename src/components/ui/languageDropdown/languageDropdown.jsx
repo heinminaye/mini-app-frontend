@@ -34,7 +34,7 @@ const LanguageDropdown = () => {
     <div className="language-switcher" ref={dropdownRef}>
       <div className="language-dropdown">
         <button
-          className={`current-language ${loading ? "loading" : ""}`}
+          className={`current-language ${loading ? "language-loading" : ""}`}
           onClick={toggleDropdown}
           disabled={loading}
         >

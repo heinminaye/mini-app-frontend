@@ -110,7 +110,7 @@ function App() {
 
   if (loading && !languageData) {
     return (
-      <div className="content-area loading">
+      <div className="loading-area loading">
         <span className="loading-circle"></span>
       </div>
     );
