@@ -1,0 +1,140 @@
+.language-switcher {
+  position: relative;
+}
+
+.language-dropdown {
+  position: relative;
+}
+
+.current-language {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.current-language:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.current-language:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.current-language.loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.flag {
+  width: 22px;
+  height: 16px;
+  border-radius: 2px;
+  border: 1px solid #e5e7eb;
+}
+
+.language-code {
+  color: #374151;
+  font-weight: 600;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  min-width: 170px;
+  z-index: 1000;
+  overflow: hidden;
+  transform: scaleY(0);
+  transform-origin: top;
+  opacity: 0;
+  transition: all 0.25s ease;
+  pointer-events: none;
+}
+
+.dropdown-menu.open {
+  transform: scaleY(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.language-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  background: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 14px;
+}
+
+.language-option:hover {
+  background: #f3f4f6;
+}
+
+.language-option.active {
+  background: #3b82f6;
+  color: white;
+}
+
+.language-name {
+  font-weight: 500;
+}
+
+.language-loading-circle{
+  width: 18px;
+  height: 18px;
+  border: 3px solid #e5e7eb;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .language-code {
+    display: none;
+  }
+  
+  .current-language {
+    padding: 8px;
+  }
+  
+  .dropdown-menu {
+    right: 0;
+    left: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .current-language {
+    padding: 6px;
+  }
+  
+  .flag {
+    width: 20px;
+    height: 15px;
+  }
+}
