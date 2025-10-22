@@ -1,7 +1,7 @@
 import "./Header.css";
 import LanguageDropdown from "../ui/languageDropdown/LanguageDropdown";
 
-const Header = ({ onMenuToggle }) => {
+const Header = ({ onMenuToggle,menuButtonRef }) => {
   const isLogin = !!localStorage.getItem("token");
   const user = JSON.parse(localStorage.getItem("user") || "{}");
 
@@ -20,7 +20,8 @@ const Header = ({ onMenuToggle }) => {
       <div className="header-container">
         {isLogin && user ? (
           <>
-            <button className="menu-toggle" onClick={onMenuToggle}>
+            <button className="menu-toggle" onClick={onMenuToggle} ref={menuButtonRef} 
+            >
               ☰
             </button>
             <div className="logo-section centered">

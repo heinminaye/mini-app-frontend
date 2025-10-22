@@ -10,11 +10,10 @@ import Header from "./components/Header/Header";
 import { LanguageProvider } from "./context/LanguageContext";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Terms from "./components/Terms/Terms";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ServerError from "./components/ServerError/ServerError";
-import { onBackendError } from "./service/backendError";
+import { onBackendError, onTokenError } from "./service/backendError";
 import apiService from "./service/api";
-import { Home } from "lucide-react";
 import PriceList from "./components/PriceList/PriceList";
 
 function App() {
@@ -23,6 +22,7 @@ function App() {
   const [languageData, setLanguageData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const menuButtonRef = useRef(null);
 
   useEffect(() => {
     loadInitialLanguageData();
@@ -31,22 +31,31 @@ function App() {
       setBackendError(error);
     });
 
+    const unsubscribeToken = onTokenError((error) => {
+      alert(error.message);
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.location.href = "/login";
+    });
+
     return () => {
       unsubscribe?.();
+      unsubscribeToken?.();
     };
   }, []);
 
   useEffect(() => {
     if (!isLogin) return;
     const handleResize = () => {
-      if (window.innerWidth <= 768) {
+      if (window.innerWidth <= 1024) {
         setIsSidebarOpen(false);
-      } else {
+      }
+      else {
         setIsSidebarOpen(true);
       }
     };
 
-    handleResize()
+    handleResize();
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -87,7 +96,7 @@ function App() {
   };
 
   const handleMenuToggle = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+    setIsSidebarOpen(prev => !prev);
   };
 
   const handleSidebarClose = () => {
@@ -99,7 +108,7 @@ function App() {
     window.location.reload();
   };
 
-  if (loading) {
+  if (loading && !languageData) {
     return (
       <div className="content-area loading">
         <span className="loading-circle"></span>
@@ -114,10 +123,11 @@ function App() {
           <Header
             onMenuToggle={handleMenuToggle}
             isSidebarOpen={isSidebarOpen}
+            menuButtonRef={menuButtonRef}
           />
           <main className="main-content">
             {isLogin && (
-              <Sidebar isOpen={isSidebarOpen} onClose={handleSidebarClose} />
+              <Sidebar isOpen={isSidebarOpen} onClose={handleSidebarClose} menuButtonRef={menuButtonRef}/>
             )}
             <div
               className={`content-area ${
@@ -127,17 +137,20 @@ function App() {
               <Routes>
                 <Route
                   path="/login"
-                  element={isLogin ? <Navigate to="/" /> : <Login />}
+                  element={isLogin ? <Navigate to="/price-list" /> : <Login />}
                 />
                 <Route path="/terms" element={<Terms />} />
                 <Route
                   path="*"
-                  element={isLogin ? <Navigate to="/" />: <Navigate to="/login" />}
+                  element={
+                    isLogin ? (
+                      <Navigate to="/price-list" />
+                    ) : (
+                      <Navigate to="/login" />
+                    )
+                  }
                 />
-                 <Route
-                  path="/price-list"
-                  element={<PriceList/>}
-                />
+                <Route path="/price-list" element={<PriceList />} />
               </Routes>
             </div>
           </main>

@@ -11,19 +11,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
   height: 60px;
 }
 
-/* Logo Section */
+/* Logo */
 .logo-section {
   display: flex;
   align-items: center;
   gap: 12px;
 }
-
 
 .logo {
   width: 40px;
@@ -92,7 +90,7 @@
   background: #e5e7eb;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .header-container {
     padding: 0 16px;
   }

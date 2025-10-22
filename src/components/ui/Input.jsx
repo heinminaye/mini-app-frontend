@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { useLanguage } from '../../hooks/useLanguage';
 
@@ -19,12 +19,32 @@ const InputField = ({
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === 'password';
   const { translate } = useLanguage();
+  const [token, setToken] = useState(null);
 
   const togglePassword = () => setShowPassword(prev => !prev);
   const displayError = translateError && error ? translate(error) : error;
 
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
+
+  const handleInputChange = (e) => {
+    let val = e.target.value;
+    if (type === 'number') {
+      if (/^\d*\.?\d*$/.test(val) || val === '') {
+        onChange(e);
+      }
+    } else {
+      onChange(e);
+    }
+  };
   return (
-    <div className="input-group">
+    <div className="input-group"  style={{
+        marginBottom: token ? '0' : '20px',
+      }}>
       {label && <label htmlFor={name}>{label}</label>}
 
       <div style={{ position: 'relative' }}>
@@ -34,7 +54,7 @@ const InputField = ({
           name={name}
           value={value}
           placeholder={placeholder}
-          onChange={onChange}
+          onChange={handleInputChange}
           onBlur={onBlur}
           disabled={disabled}
           className={error ? 'input-error' : ''}

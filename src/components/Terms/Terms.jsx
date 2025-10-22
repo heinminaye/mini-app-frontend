@@ -44,12 +44,7 @@ const Terms = () => {
 
   if (error || !terms) {
     return (
-      <div className="terms-container">
-        <div className="terms-card loading-card">
-          <p>{error || translate('login.error_server')}</p>
-          <button className="btn" onClick={fetchTerms}>{translate('login.button')}</button>
-        </div>
-      </div>
+      <></>
     );
   }
 

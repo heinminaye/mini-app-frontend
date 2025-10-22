@@ -9,3 +9,12 @@ export function onBackendError(callback) {
 export function triggerBackendError(error) {
     emitter.emit("backendError", error);
 }
+
+export function onTokenError(callback) {
+  emitter.on("tokenError", callback);
+  return () => emitter.off("tokenError", callback);
+}
+
+export function triggerTokenError(error) {
+  emitter.emit("tokenError", error);
+}
