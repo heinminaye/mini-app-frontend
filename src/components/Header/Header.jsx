@@ -20,10 +20,8 @@ const Header = ({ onMenuToggle, menuButtonRef }) => {
 
   const toggleNav = () => setNavOpen(!navOpen);
 
-  // Close navbar when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Check if click is outside both navbar and navbar toggle button
       if (
         navbarRef.current &&
         !navbarRef.current.contains(event.target) &&
@@ -33,19 +31,15 @@ const Header = ({ onMenuToggle, menuButtonRef }) => {
         setNavOpen(false);
       }
     };
-
-    // Add event listener when navbar is open
     if (navOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
 
-    // Cleanup function
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [navOpen]);
 
-  // Close navbar when pressing Escape key
   useEffect(() => {
     const handleEscapeKey = (event) => {
       if (event.key === "Escape" && navOpen) {
@@ -65,7 +59,6 @@ const Header = ({ onMenuToggle, menuButtonRef }) => {
   return (
     <header className="header">
       <div className="header-container">
-        {/* Left Section: Menu toggle if logged in */}
         {isLogin && user && (
           <button
             className="menu-toggle"
@@ -76,7 +69,6 @@ const Header = ({ onMenuToggle, menuButtonRef }) => {
           </button>
         )}
 
-        {/* Center: Logo */}
         <div className="logo-section">
           <img
             src="https://storage.123fakturera.se/public/icons/diamond.png"
@@ -85,7 +77,6 @@ const Header = ({ onMenuToggle, menuButtonRef }) => {
           />
         </div>
 
-        {/* Right Section: User / Navbar / Language */}
         <div className="header-right">
           {isLogin && user && (
             <>
