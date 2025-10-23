@@ -59,7 +59,7 @@ const Login = () => {
 
   useEffect(() => {
     if (serverError) {
-      const timer = setTimeout(() => setServerError(""), 3000);
+      const timer = setTimeout(() => setServerError(""), 8000);
       return () => clearTimeout(timer);
     }
   }, [serverError]);

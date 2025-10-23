@@ -50,9 +50,8 @@ const Terms = () => {
 
   return (
     <div className="terms-container">
+      <h1 className="terms-title">{currentLang === 'en' ? 'Terms' : 'Allmänna'}</h1>
       <div className="terms-card">
-        <h1 className="terms-title">{currentLang === 'en' ? 'Terms & Conditions' : 'Allmänna Villkor'}</h1>
-
         <div className="terms-content">
           <p className="intro">{terms.introduction}</p>
 

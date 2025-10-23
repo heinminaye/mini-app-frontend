@@ -1,9 +1,10 @@
 .terms-container {
   min-height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  padding: 50px 20px;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .terms-card {
