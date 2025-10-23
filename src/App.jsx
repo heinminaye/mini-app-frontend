@@ -120,12 +120,12 @@ function App() {
     <LanguageProvider initialData={languageData}>
       <Router>
         <div className="app">
-          <Header
-            onMenuToggle={handleMenuToggle}
-            isSidebarOpen={isSidebarOpen}
-            menuButtonRef={menuButtonRef}
-          />
-          <main className="main-content">
+         <main className={`main-content ${!isLogin ? "background-image" : ""}`}>
+            <Header
+              onMenuToggle={handleMenuToggle}
+              isSidebarOpen={isSidebarOpen}
+              menuButtonRef={menuButtonRef}
+            />
             {isLogin && (
               <Sidebar isOpen={isSidebarOpen} onClose={handleSidebarClose} menuButtonRef={menuButtonRef}/>
             )}

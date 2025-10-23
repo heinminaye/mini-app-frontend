@@ -70,14 +70,14 @@ const InputField = ({
             onClick={togglePassword}
             style={{
               position: 'absolute',
-              right: '10px',
-              top: '54%',
+              right: '18px',
+              top: '55%',
               transform: 'translateY(-50%)',
               cursor: 'pointer',
               color: '#6b7280',
             }}
           >
-            {showPassword ? <EyeOff size={20}/> : <Eye size={20}/>}
+            {showPassword ? <EyeOff size={22}/> : <Eye size={22}/>}
           </span>
         )}
       </div>

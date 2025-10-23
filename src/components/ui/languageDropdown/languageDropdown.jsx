@@ -42,7 +42,8 @@ const LanguageDropdown = () => {
             <span className="language-loading-circle"></span>
           ) : (
             <>
-              <span className="language-code">{currentLang.toUpperCase()}</span>
+              <span className="language-code">{supportedLanguages.find((lang) => lang.code === currentLang)
+                    ?.name}</span>
               <img
                 src={
                   supportedLanguages.find((lang) => lang.code === currentLang)

@@ -9,20 +9,14 @@
 .current-language {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   padding: 8px 12px;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  background: transparent;
+  border: none;
   cursor: pointer;
   transition: all 0.2s;
   font-size: 14px;
   font-weight: 500;
-}
-
-.current-language:hover {
-  background: #f1f5f9;
-  border-color: #cbd5e1;
 }
 
 .current-language:disabled {
@@ -36,15 +30,15 @@
 }
 
 .flag {
-  width: 22px;
-  height: 16px;
+  width: 26px;
+  height: 18px;
   border-radius: 2px;
-  border: 1px solid #e5e7eb;
 }
 
 .language-code {
-  color: #374151;
-  font-weight: 600;
+  font-size: 16px;
+  color: white;
+  font-weight: 500;
 }
 
 .dropdown-menu {
@@ -110,21 +104,6 @@
 @keyframes spin {
   to {
     transform: rotate(360deg);
-  }
-}
-
-@media (max-width: 768px) {
-  .language-code {
-    display: none;
-  }
-  
-  .current-language {
-    padding: 8px;
-  }
-  
-  .dropdown-menu {
-    right: 0;
-    left: auto;
   }
 }
 

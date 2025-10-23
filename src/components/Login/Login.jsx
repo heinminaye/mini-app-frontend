@@ -20,7 +20,6 @@ const Login = () => {
     defaultValues: {
       email: "",
       password: "",
-      acceptTerms: false,
     },
   });
 
@@ -32,37 +31,23 @@ const Login = () => {
     try {
       const result = await apiService.login(data.email, data.password);
 
-      console.log("Login response:", result);
-
-      if (result.returncode == "200") {
-        if (result.token) {
-          localStorage.setItem("token", result.token);
-        }
-        if (result.user) {
+      if (result.returncode === "200") {
+        if (result.token) localStorage.setItem("token", result.token);
+        if (result.user)
           localStorage.setItem("user", JSON.stringify(result.user));
-        } else {
+        else {
           const userData = {
             email: data.email,
-            name: data.email.split('@')[0]
+            name: data.email.split("@")[0],
           };
           localStorage.setItem("user", JSON.stringify(userData));
         }
-        window.location.reload();
+
+        window.location.href = "/pricelist";
       } else {
-        const messageKey =
-          result.message && result.message.startsWith("login.")
-            ? result.message
-            : "login.error_server";
-
-        setServerError(messageKey);
-
-        if (
-          result.message.toLowerCase().includes("email") ||
-          result.message.toLowerCase().includes("password")
-        ) {
-          setError("email", { type: "server" });
-          setError("password", { type: "server" });
-        }
+        setServerError(result.message || "login.error_server");
+        setError("email", { type: "server" });
+        setError("password", { type: "server" });
       }
     } catch (err) {
       console.log(err);
@@ -74,96 +59,102 @@ const Login = () => {
 
   useEffect(() => {
     if (serverError) {
-      const timer = setTimeout(() => {
-        setServerError("");
-      }, 3000);
+      const timer = setTimeout(() => setServerError(""), 3000);
       return () => clearTimeout(timer);
     }
   }, [serverError]);
 
   return (
-    <div className="login-container">
-      <div className="login-card">
-        <div className="login-header">
-          <h2>{translate("login.title")}</h2>
-        </div>
-
-        {serverError && (
-          <div className="error-message">{translate(serverError)}</div>
-        )}
-
-        <form onSubmit={handleSubmit(onSubmit)} className="login-form">
-          <InputField
-            label={translate("login.email_label")}
-            type="email"
-            name="email"
-            placeholder={translate("login.email_placeholder")}
-            disabled={loading}
-            error={errors.email?.message ? translate(errors.email.message) : ""}
-            translateError={true}
-            {...register("email", {
-              required: "login.error_required_email",
-              pattern: {
-                value: /\S+@\S+\.\S+/,
-                message: "login.error_invalid",
-              },
-            })}
-          />
-
-          <InputField
-            label={translate("login.password_label")}
-            type="password"
-            name="password"
-            placeholder={translate("login.password_placeholder")}
-            disabled={loading}
-            showPasswordToggle={true}
-            error={
-              errors.password?.message ? translate(errors.password.message) : ""
-            }
-            translateError={true}
-            {...register("password", {
-              required: "login.error_required_password",
-              minLength: {
-                value: 6,
-                message: "login.error_min_password",
-              },
-            })}
-          />
-
-          <div className="login-terms-container">
-            <label className="terms-label">
-              <input
-                type="checkbox"
-                {...register("acceptTerms", {
-                  required: "login.error_required_terms",
-                })}
-                className="terms-checkbox"
-              />
-              <span className="terms-text">
-                {translate("login.accept_terms_1")}{" "}
-                <a
-                  href="/terms"
-                  className="terms-link"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    window.open("/terms", "_blank");
-                  }}
-                >
-                  {translate("login.terms_link")}
-                </a>
-              </span>
-            </label>
-            {errors.acceptTerms && (
-              <div className="field-error">
-                {translate(errors.acceptTerms.message)}
-              </div>
-            )}
+    <div
+      className="login-page"
+    >
+      <div className="login-overlay">
+        <div className="login-box">
+          <div className="login-logo">
+            <h2>{translate("login.title")}</h2>
           </div>
-          <button type="submit" className="login-button" disabled={loading}>
-            {loading ? translate("login.loading") : translate("login.button")}
-          </button>
-        </form>
+
+          {serverError && (
+            <div className="error-banner">{translate(serverError)}</div>
+          )}
+
+          <form onSubmit={handleSubmit(onSubmit)} className="login-form">
+            <InputField
+              label={translate("login.email_label")}
+              type="email"
+              name="email"
+              placeholder={translate("login.email_placeholder")}
+              disabled={loading}
+              error={
+                errors.email?.message ? translate(errors.email.message) : ""
+              }
+              translateError={true}
+              {...register("email", {
+                required: "login.error_required_email",
+                pattern: {
+                  value: /\S+@\S+\.\S+/,
+                  message: "login.error_invalid",
+                },
+              })}
+            />
+
+            <InputField
+              label={translate("login.password_label")}
+              type="password"
+              name="password"
+              placeholder={translate("login.password_placeholder")}
+              disabled={loading}
+              showPasswordToggle={true}
+              error={
+                errors.password?.message
+                  ? translate(errors.password.message)
+                  : ""
+              }
+              translateError={true}
+              {...register("password", {
+                required: "login.error_required_password",
+                minLength: {
+                  value: 6,
+                  message: "login.error_min_password",
+                },
+              })}
+            />
+
+            <button type="submit" className="login-btn" disabled={loading}>
+              {loading ? translate("login.loading") : translate("login.button")}
+            </button>
+
+            <div className="login-links">
+              <a href="/register" className="register-link">
+                {translate("register.button")}
+              </a>
+              <a href="/forgot-password" className="forgot-link">
+                {translate("forgot_password.title")}
+              </a>
+            </div>
+          </form>
+        </div>
       </div>
+      <footer className="login-footer">
+        <div className="login-footer-header">
+          <p>123 Fakturera</p>
+          <div className="login-footer-links">
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              {translate("navbar.home")}
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              {translate("navbar.order")}
+            </a>
+
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              {translate("navbar.contact")}
+            </a>
+          </div>
+        </div>
+        <div className="login-footer-rights">
+          <p>© Lättfaktura, CRO no. 638537, {new Date().getFullYear()}  {translate("login.footer_rights")}</p>
+        </div>
+      </footer>
     </div>
   );
 };
