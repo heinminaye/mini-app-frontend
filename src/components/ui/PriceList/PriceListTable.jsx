@@ -14,7 +14,6 @@ function PriceListTable({
         <table className="pricelist-table">
           <thead>
             <tr>
-              <th>ID</th>
               <th>{translate("pricelist.column_articleNo")}</th>
               <th>{translate("pricelist.column_productService")}</th>
               <th>{translate("pricelist.column_inPrice")}</th>
@@ -22,15 +21,12 @@ function PriceListTable({
               <th>{translate("pricelist.column_unit")}</th>
               <th>{translate("pricelist.column_inStock")}</th>
               <th>{translate("pricelist.column_description")}</th>
-              <th className="actions-header">{translate("pricelist.column_actions")}</th>
+              <th className="actions-header"></th>
             </tr>
           </thead>
           <tbody>
             {items.map((item) => (
               <tr key={item.id}>
-                <td data-label="ID" className="id-cell">
-                  <span className="id-badge">{item.id}</span>
-                </td>
                 <td data-label={translate("pricelist.column_articleNo")}>
                   {item.articleNo}
                 </td>

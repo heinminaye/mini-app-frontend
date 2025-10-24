@@ -56,6 +56,9 @@ const Sidebar = ({ isOpen, onClose , menuButtonRef}) => {
 
   return (
     <nav className={`sidebar ${isOpen ? "mobile-open" : ""}`} ref={sidebarRef}>
+      <div className="sidebar-header">
+        <h3>{translate('menu.header')}</h3>
+      </div>
       <div className="sidebar-content">
         <ul className="sidebar-menu">
           {menuItems.map((item) => (

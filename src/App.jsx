@@ -15,6 +15,7 @@ import ServerError from "./components/ServerError/ServerError";
 import { onBackendError, onTokenError } from "./service/backendError";
 import apiService from "./service/api";
 import PriceList from "./components/PriceList/PriceList";
+import ProtectedRoute from "./components/ui/ProtectedRoute";
 
 function App() {
   const isLogin = !!localStorage.getItem("token");
@@ -49,8 +50,7 @@ function App() {
     const handleResize = () => {
       if (window.innerWidth <= 1024) {
         setIsSidebarOpen(false);
-      }
-      else {
+      } else {
         setIsSidebarOpen(true);
       }
     };
@@ -96,7 +96,7 @@ function App() {
   };
 
   const handleMenuToggle = () => {
-    setIsSidebarOpen(prev => !prev);
+    setIsSidebarOpen((prev) => !prev);
   };
 
   const handleSidebarClose = () => {
@@ -120,14 +120,20 @@ function App() {
     <LanguageProvider initialData={languageData}>
       <Router>
         <div className="app">
-         <main className={`main-content ${!isLogin ? "background-image" : ""}`}>
+          <main
+            className={`main-content ${!isLogin ? "background-image" : ""}`}
+          >
             <Header
               onMenuToggle={handleMenuToggle}
               isSidebarOpen={isSidebarOpen}
               menuButtonRef={menuButtonRef}
             />
             {isLogin && (
-              <Sidebar isOpen={isSidebarOpen} onClose={handleSidebarClose} menuButtonRef={menuButtonRef}/>
+              <Sidebar
+                isOpen={isSidebarOpen}
+                onClose={handleSidebarClose}
+                menuButtonRef={menuButtonRef}
+              />
             )}
             <div
               className={`content-area ${
@@ -144,13 +150,20 @@ function App() {
                   path="*"
                   element={
                     isLogin ? (
-                      <Navigate to="/price-list" />
+                      <Navigate to="/price-list"/>
                     ) : (
-                      <Navigate to="/login" />
+                      <Navigate to="/login"/>
                     )
                   }
                 />
-                <Route path="/price-list" element={<PriceList />} />
+                <Route
+                  path="/price-list"
+                  element={
+                    <ProtectedRoute>
+                      <PriceList />
+                    </ProtectedRoute>
+                  }
+                />
               </Routes>
             </div>
           </main>

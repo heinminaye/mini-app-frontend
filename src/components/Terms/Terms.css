@@ -5,13 +5,16 @@
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+  width: 90%;
+  margin: auto;
 }
 
 .terms-card {
+  max-width: 100%;
+  width: 750px;
   background: white;
   border-radius: 20px;
-  box-shadow: 0 5px 8px rgba(0,0,0,0.2);
-  max-width: 900px;
+  max-width: 750px;
   width: 100%;
   padding: 50px 40px;
   display: flex;
@@ -19,13 +22,36 @@
   align-items: center;
   justify-content: center;
   gap: 30px;
-  margin: auto;
 }
 
+.terms-header{
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3em;
+}
+
+.terms-back-button{
+  margin-top: 18px;
+  font-size: 1em;
+  color: white;
+  background-color: rgb(8, 158, 30);
+  cursor: pointer;
+  padding: 1rem 2.5rem;
+  outline: none;
+  border: none;
+  border-radius: 3rem;
+  font-weight: 500;
+}
+.terms-back-button.last-button{
+  margin: 3em 0;
+}
+
+
 .terms-title {
-  font-size: 30px;
+  font-size: 1.5em;
   font-weight: 700;
-  color: #1e40af;
+  color: white;
   text-align: center;
   margin: 0;
 }
@@ -33,16 +59,14 @@
 .terms-content {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 15px;
 }
 
 .terms-content section h2 {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   color: #1e40af;
-  margin-bottom: 10px;
-  border-bottom: 2px solid #e5e7eb;
-  padding-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 .terms-content section p,
@@ -51,29 +75,9 @@
   line-height: 1.7;
   color: #374151;
   margin: 0;
-  padding-left: 10px;
 }
 
-/* Buttons */
-.btn {
-  background: #3b82f6;
-  color: white;
-  border: none;
-  padding: 14px 30px;
-  font-size: 16px;
-  font-weight: 600;
-  border-radius: 12px;
-  cursor: pointer;
-  align-self: center;
-  transition: all 0.2s ease;
-}
 
-.btn:hover {
-  background: #2563eb;
-  transform: translateY(-2px);
-}
-
-/* Loading */
 .loading-card {
   text-align: center;
 }
@@ -99,19 +103,5 @@
 
   .terms-title {
     font-size: 28px;
-  }
-
-  .terms-content section h2 {
-    font-size: 20px;
-  }
-
-  .terms-content section p,
-  .intro {
-    font-size: 15px;
-  }
-
-  .btn {
-    padding: 12px 25px;
-    font-size: 15px;
   }
 }

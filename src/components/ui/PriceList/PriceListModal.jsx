@@ -191,7 +191,7 @@ function PriceListModal({
           <div className="form-actions">
             <button
               type="submit"
-              className="btn btn-primary btn-with-icon"
+              className="btn btn-primary"
               disabled={loading}
             >
               <span className="btn-icon">💾</span>

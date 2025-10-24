@@ -57,8 +57,8 @@ const Header = ({ onMenuToggle, menuButtonRef }) => {
   }, [navOpen]);
 
   return (
-    <header className="header">
-      <div className="header-container">
+    <header className={`header ${isLogin ? "header-logged-in" : ""}`}>
+      <div className={`header-container ${isLogin ? "header-container-logged" : ""}`}>
         {isLogin && user && (
           <button
             className="menu-toggle"
@@ -69,25 +69,26 @@ const Header = ({ onMenuToggle, menuButtonRef }) => {
           </button>
         )}
 
-        <div className="logo-section">
+        {!isLogin &&  (
+          <div className="logo-section">
           <img
             src="https://storage.123fakturera.se/public/icons/diamond.png"
             alt="Logo"
             className="logo"
           />
         </div>
+        )}
 
-        <div className="header-right">
+        <div className={`header-right ${isLogin ? "header-right-logged" : ""}`}>
           {isLogin && user && (
             <>
               <div className="user-info">
+                <div className="user-avatar">{getUserInitial()}</div>
                 <div className="user-details">
                   <span>{user.name}</span>
                   <span>{user.email}</span>
                 </div>
-                <div className="user-avatar">{getUserInitial()}</div>
               </div>
-              <div className="separator"></div>
             </>
           )}
 

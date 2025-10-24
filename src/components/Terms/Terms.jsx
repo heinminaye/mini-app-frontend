@@ -50,7 +50,10 @@ const Terms = () => {
 
   return (
     <div className="terms-container">
-      <h1 className="terms-title">{currentLang === 'en' ? 'Terms' : 'Allmänna'}</h1>
+      <div className="terms-header">
+        <h1 className="terms-title">{currentLang === 'en' ? 'Terms' : 'Allmänna'}</h1>
+        <button className="terms-back-button" onClick={() => window.history.back()}>{translate("terms.closeAndGoBack")}</button>
+      </div>
       <div className="terms-card">
         <div className="terms-content">
           <p className="intro">{terms.introduction}</p>
@@ -91,6 +94,7 @@ const Terms = () => {
           </section>
         </div>
       </div>
+      <button className="terms-back-button last-button" onClick={() => window.history.back()}>{translate("terms.closeAndGoBack")}</button>
     </div>
   );
 };

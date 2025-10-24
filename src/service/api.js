@@ -67,20 +67,24 @@ class ApiService {
   }
 
   async getTerms() {
-    return this.request(`${API_URL}/terms/`, {
-      method: "GET",
-      headers: {
-        "accept-language": currentLang,
-      },
-    });
+    return this.request(
+      `https://mini-app-backend-production-cfb5.up.railway.app/terms/`,
+      {
+        method: "GET",
+        headers: {
+          "accept-language": currentLang,
+        },
+      }
+    );
   }
 
-  async getPricelist(search = "") {
+  async getPricelist(articleSearch = "", productSearch = "") {
     const token = localStorage.getItem("token");
-    let url = `${API_URL}/pricelist`;
-    if (search) {
-      url += `?search=${encodeURIComponent(search)}`;
-    }
+    let url = `${API_URL}/pricelist?`;
+    if (articleSearch)
+      url += `articleSearch=${encodeURIComponent(articleSearch)}&`;
+    if (productSearch)
+      url += `productSearch=${encodeURIComponent(productSearch)}&`;
 
     return this.request(url, {
       method: "GET",

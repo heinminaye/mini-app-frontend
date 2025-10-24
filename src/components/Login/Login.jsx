@@ -45,7 +45,7 @@ const Login = () => {
 
         window.location.href = "/pricelist";
       } else {
-        setServerError(result.message || "login.error_server");
+        setServerError(result.message || translate("login.error_server"));
         setError("email", { type: "server" });
         setError("password", { type: "server" });
       }
