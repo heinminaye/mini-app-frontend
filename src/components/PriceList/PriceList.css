@@ -3,7 +3,6 @@
   max-width: 100%;
   margin: 0 auto;
   min-height: 100%;
-  font-family: Arial, sans-serif;
   background-color: #f5f5f5;
 }
 
@@ -251,7 +250,7 @@
  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: nowrap !important;
 }
 
 /* Three-Dot Menu */

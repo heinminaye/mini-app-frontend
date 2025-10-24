@@ -27,18 +27,15 @@ function PriceList() {
   const { translate } = useLanguage();
   const menuRefs = useRef({});
   const tableContainerRef = useRef(null);
-  const [articleSearch, setArticleSearch] = useState("");
-  const [productSearch, setProductSearch] = useState("");
-
-  const debouncedArticleSearch = useDebounce(articleSearch, 500);
-  const debouncedProductSearch = useDebounce(productSearch, 500);
+  const [searchTerms, setSearchTerms] = useState({ article: "", product: "" });
+  const debouncedSearch = useDebounce(searchTerms, 500);
 
   const fetchItems = async () => {
     setLoading(true);
     try {
       const response = await apiService.getPricelist(
-        debouncedArticleSearch,
-        debouncedProductSearch
+        debouncedSearch.article,
+        debouncedSearch.product
       );
       if (response.returncode === "200") {
         setItems(response.data || []);
@@ -55,7 +52,7 @@ function PriceList() {
 
   useEffect(() => {
     fetchItems();
-  }, [debouncedArticleSearch, debouncedProductSearch]);
+  }, [debouncedSearch]);
 
   useEffect(() => {
     if (serverError) {
@@ -231,8 +228,10 @@ function PriceList() {
             <input
               type="text"
               placeholder="Search Article No..."
-              value={articleSearch}
-              onChange={(e) => setArticleSearch(e.target.value)}
+              value={searchTerms.article}
+              onChange={(e) =>
+                setSearchTerms((prev) => ({ ...prev, article: e.target.value }))
+              }
               className="search-input"
             />
             <Search size={20} className="search-icon" />
@@ -242,8 +241,10 @@ function PriceList() {
             <input
               type="text"
               placeholder="Search Product..."
-              value={productSearch}
-              onChange={(e) => setProductSearch(e.target.value)}
+              value={searchTerms.product}
+              onChange={(e) =>
+                setSearchTerms((prev) => ({ ...prev, product: e.target.value }))
+              }
               className="search-input"
             />
             <Search size={20} className="search-icon" />
@@ -293,95 +294,131 @@ function PriceList() {
       {!loading && displayItems.length > 0 && (
         <div className="table-overflow" ref={tableContainerRef}>
           <div className="table-container">
-           <table className="pricelist-table">
-  <thead>
-    <tr>
-      <th className="column-article">{translate("pricelist.column_articleNo")}</th>
-      <th className="column-product">{translate("pricelist.column_productService")}</th>
-      <th className="column-inprice">{translate("pricelist.column_inPrice")}</th>
-      <th className="column-price">{translate("pricelist.column_price")}</th>
-      <th className="column-unit">{translate("pricelist.column_unit")}</th>
-      <th className="column-stock">{translate("pricelist.column_inStock")}</th>
-      <th className="column-description">{translate("pricelist.column_description")}</th>
-      <th className="actions-header"></th>
-    </tr>
-  </thead>
-  <tbody>
-    {displayItems.map((item) => (
-      <tr key={item.id}>
-        <td className="column-article" data-label={translate("pricelist.column_articleNo")}>
-          {item.articleNo}
-        </td>
-        <td className="column-product" data-label={translate("pricelist.column_productService")}>
-          {item.productService}
-        </td>
-        <td className="column-inprice" data-label={translate("pricelist.column_inPrice")}>
-          {formatCurrency(item.inPrice)}
-        </td>
-        <td className="column-price" data-label={translate("pricelist.column_price")}>
-          {formatCurrency(item.price)}
-        </td>
-        <td className="column-unit" data-label={translate("pricelist.column_unit")}>
-          {item.unit || "-"}
-        </td>
-        <td className="column-stock" data-label={translate("pricelist.column_inStock")}>
-          <span className={`stock-badge ${item.inStock > 0 ? 'in-stock' : 'out-of-stock'}`}>
-            {item.inStock !== null ? item.inStock : "-"}
-          </span>
-        </td>
-        <td 
-          className="column-description description-cell" 
-          data-label={translate("pricelist.column_description")}
-        >
-          {item.description || "-"}
-        </td>
-        <td className="actions-cell">
-          <div className="action-menu">
-            <button 
-              className="menu-button"
-              onClick={(e) => toggleMenu(item.id, e)}
-              title="Actions"
-              ref={el => menuRefs.current[item.id] = el}
-            >
-              <span className="menu-icon">⋯</span>
-            </button>
-            {activeMenu === item.id && (
-              <div 
-                className={`menu-dropdown ${
-                  dropdownPosition.id === item.id && dropdownPosition.shouldOpenUp 
-                    ? 'bottom-up' 
-                    : ''
-                }`}
-              >
-                <button 
-                  className="dropdown-item edit"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleEdit(item);
-                  }}
-                  
-                >
-                  <span className="dropdown-icon">✏️</span>
-                  {translate("pricelist.button_edit")}
-                </button>
-                <button 
-                  className="dropdown-item delete"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDelete(item.id);
-                  }}
-                >
-                  <span className="dropdown-icon">🗑️</span>
-                  {translate("pricelist.button_delete")}
-                </button>
-              </div>
-            )}
-          </div>
-        </td>
-      </tr>
-    ))}
-  </tbody>
-</table>
+            <table className="pricelist-table">
+              <thead>
+                <tr>
+                  <th className="column-article">
+                    {translate("pricelist.column_articleNo")}
+                  </th>
+                  <th className="column-product">
+                    {translate("pricelist.column_productService")}
+                  </th>
+                  <th className="column-inprice">
+                    {translate("pricelist.column_inPrice")}
+                  </th>
+                  <th className="column-price">
+                    {translate("pricelist.column_price")}
+                  </th>
+                  <th className="column-unit">
+                    {translate("pricelist.column_unit")}
+                  </th>
+                  <th className="column-stock">
+                    {translate("pricelist.column_inStock")}
+                  </th>
+                  <th className="column-description">
+                    {translate("pricelist.column_description")}
+                  </th>
+                  <th className="actions-header"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {displayItems.map((item) => (
+                  <tr key={item.id}>
+                    <td
+                      className="column-article"
+                      data-label={translate("pricelist.column_articleNo")}
+                    >
+                      {item.articleNo}
+                    </td>
+                    <td
+                      className="column-product"
+                      data-label={translate("pricelist.column_productService")}
+                    >
+                      {item.productService}
+                    </td>
+                    <td
+                      className="column-inprice"
+                      data-label={translate("pricelist.column_inPrice")}
+                    >
+                      {formatCurrency(item.inPrice)}
+                    </td>
+                    <td
+                      className="column-price"
+                      data-label={translate("pricelist.column_price")}
+                    >
+                      {formatCurrency(item.price)}
+                    </td>
+                    <td
+                      className="column-unit"
+                      data-label={translate("pricelist.column_unit")}
+                    >
+                      {item.unit || "-"}
+                    </td>
+                    <td
+                      className="column-stock"
+                      data-label={translate("pricelist.column_inStock")}
+                    >
+                      <span
+                        className={`stock-badge ${
+                          item.inStock > 0 ? "in-stock" : "out-of-stock"
+                        }`}
+                      >
+                        {item.inStock !== null ? item.inStock : "-"}
+                      </span>
+                    </td>
+                    <td
+                      className="column-description description-cell"
+                      data-label={translate("pricelist.column_description")}
+                    >
+                      {item.description || "-"}
+                    </td>
+                    <td className="actions-cell">
+                      <div className="action-menu">
+                        <button
+                          className="menu-button"
+                          onClick={(e) => toggleMenu(item.id, e)}
+                          title="Actions"
+                          ref={(el) => (menuRefs.current[item.id] = el)}
+                        >
+                          <span className="menu-icon">⋯</span>
+                        </button>
+                        {activeMenu === item.id && (
+                          <div
+                            className={`menu-dropdown ${
+                              dropdownPosition.id === item.id &&
+                              dropdownPosition.shouldOpenUp
+                                ? "bottom-up"
+                                : ""
+                            }`}
+                          >
+                            <button
+                              className="dropdown-item edit"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleEdit(item);
+                              }}
+                            >
+                              <span className="dropdown-icon">✏️</span>
+                              {translate("pricelist.button_edit")}
+                            </button>
+                            <button
+                              className="dropdown-item delete"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDelete(item.id);
+                              }}
+                            >
+                              <span className="dropdown-icon">🗑️</span>
+                              {translate("pricelist.button_delete")}
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       )}
