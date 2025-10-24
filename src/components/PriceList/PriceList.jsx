@@ -227,7 +227,7 @@ function PriceList() {
           <div className="search-box">
             <input
               type="text"
-              placeholder="Search Article No..."
+              placeholder={translate("pricelist.search_article")}
               value={searchTerms.article}
               onChange={(e) =>
                 setSearchTerms((prev) => ({ ...prev, article: e.target.value }))
@@ -240,7 +240,7 @@ function PriceList() {
           <div className="search-box">
             <input
               type="text"
-              placeholder="Search Product..."
+              placeholder={translate("pricelist.search_product")}
               value={searchTerms.product}
               onChange={(e) =>
                 setSearchTerms((prev) => ({ ...prev, product: e.target.value }))
@@ -252,17 +252,17 @@ function PriceList() {
         </div>
         <div className="control-buttons">
           <button className="btn btn-primary" onClick={() => setShowForm(true)}>
-            <span>New Product</span>
+            <span>{translate("pricelist.button_add")}</span>
             <PlusCircle className="btn-icon" />
           </button>
 
           <button className="btn btn-secondary" onClick={handlePrint}>
-            <span>Print List</span>
+            <span>{translate("pricelist.button_print")}</span>
             <Printer className="btn-icon" />
           </button>
 
           <button className="btn btn-secondary">
-            <span>Advanced Mode</span>
+            <span>{translate("pricelist.button_advance")}</span>
             <Settings className="btn-icon" />
           </button>
         </div>
